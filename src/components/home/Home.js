@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 
+import Snippet from "./Snippet";
+
 function Home() {
   const [snippets, setSnippets] = useState([]);
 
@@ -13,7 +15,13 @@ function Home() {
     setSnippets(snippetsRes.data);
   }
 
-  return <div className="home">Home</div>;
+  function renderSnippets() {
+    return snippets.map((snippet, i) => {
+      return <Snippet key={i} snippet={snippet} />;
+    });
+  }
+
+  return <div className="home">{renderSnippets()}</div>;
 }
 
 export default Home;
