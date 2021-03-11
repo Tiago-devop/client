@@ -20,7 +20,12 @@ function Home() {
   }
 
   function renderSnippets() {
-    return snippets.map((snippet, i) => {
+    let sortedSnippets = [...snippets];
+    sortedSnippets = sortedSnippets.sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+
+    return sortedSnippets.map((snippet, i) => {
       return <Snippet key={i} snippet={snippet} />;
     });
   }
@@ -35,6 +40,16 @@ function Home() {
     };
 
     await Axios.post("http://localhost:5000/snippet/", snippetData);
+
+    getSnippets();
+    closeEditor();
+  }
+
+  function closeEditor() {
+    setNewSnippetEditorOpen(false);
+    setEditorCode("");
+    setEditorDescription("");
+    setEditorTitle("");
   }
 
   return (
@@ -70,6 +85,9 @@ function Home() {
               onChange={(e) => setEditorCode(e.target.value)}
             />
             <button type="submit">Save snippet</button>
+            <button type="button" onClick={closeEditor}>
+              Cancel
+            </button>
           </form>
         </div>
       )}
