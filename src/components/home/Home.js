@@ -24,7 +24,7 @@ function Home() {
     });
 
     return sortedSnippets.map((snippet, i) => {
-      return <Snippet key={i} snippet={snippet} />;
+      return <Snippet key={i} snippet={snippet} getSnippets={getSnippets} />;
     });
   }
 
