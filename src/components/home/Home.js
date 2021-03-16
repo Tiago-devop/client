@@ -6,7 +6,8 @@ import SnippetEditor from "./SnippetEditor";
 
 function Home() {
   const [snippets, setSnippets] = useState([]);
-  const [newSnippetEditorOpen, setNewSnippetEditorOpen] = useState(false);
+  const [snippetEditorOpen, setSnippetEditorOpen] = useState(false);
+  const [editSnippetData, setEditSnippetData] = useState(null);
 
   useEffect(() => {
     getSnippets();
@@ -17,6 +18,11 @@ function Home() {
     setSnippets(snippetsRes.data);
   }
 
+  function editSnippet(snippetData) {
+    setEditSnippetData(snippetData);
+    setSnippetEditorOpen(true);
+  }
+
   function renderSnippets() {
     let sortedSnippets = [...snippets];
     sortedSnippets = sortedSnippets.sort((a, b) => {
@@ -24,21 +30,27 @@ function Home() {
     });
 
     return sortedSnippets.map((snippet, i) => {
-      return <Snippet key={i} snippet={snippet} getSnippets={getSnippets} />;
+      return (
+        <Snippet
+          key={i}
+          snippet={snippet}
+          getSnippets={getSnippets}
+          editSnippet={editSnippet}
+        />
+      );
     });
   }
 
   return (
     <div className="home">
-      {!newSnippetEditorOpen && (
-        <button onClick={() => setNewSnippetEditorOpen(true)}>
-          Add snippet
-        </button>
+      {!snippetEditorOpen && (
+        <button onClick={() => setSnippetEditorOpen(true)}>Add snippet</button>
       )}
-      {newSnippetEditorOpen && (
+      {snippetEditorOpen && (
         <SnippetEditor
-          setNewSnippetEditorOpen={setNewSnippetEditorOpen}
+          setSnippetEditorOpen={setSnippetEditorOpen}
           getSnippets={getSnippets}
+          editSnippetData={editSnippetData}
         />
       )}
       {renderSnippets()}

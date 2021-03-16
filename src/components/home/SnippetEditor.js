@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "axios";
 
-function SnippetEditor(props) {
+function SnippetEditor({ getSnippets, setSnippetEditorOpen, editSnippetData }) {
   const [editorTitle, setEditorTitle] = useState("");
   const [editorDescription, setEditorDescription] = useState("");
   const [editorCode, setEditorCode] = useState("");
+
+  useEffect(() => {
+    if (editSnippetData) {
+      setEditorTitle(editSnippetData.title ? editSnippetData.title : "");
+      setEditorDescription(
+        editSnippetData.description ? editSnippetData.description : ""
+      );
+      setEditorCode(editSnippetData.code ? editSnippetData.code : "");
+    }
+  }, [editSnippetData]);
 
   async function saveSnippet(e) {
     e.preventDefault();
@@ -15,14 +25,20 @@ function SnippetEditor(props) {
       code: editorCode ? editorCode : undefined,
     };
 
-    await Axios.post("http://localhost:5000/snippet/", snippetData);
+    if (!editSnippetData)
+      await Axios.post("http://localhost:5000/snippet/", snippetData);
+    else
+      await Axios.put(
+        `http://localhost:5000/snippet/${editSnippetData._id}`,
+        snippetData
+      );
 
-    props.getSnippets();
+    getSnippets();
     closeEditor();
   }
 
   function closeEditor() {
-    props.setNewSnippetEditorOpen(false);
+    setSnippetEditorOpen(false);
     setEditorCode("");
     setEditorDescription("");
     setEditorTitle("");
