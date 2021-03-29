@@ -20,8 +20,12 @@ function Snippet({ snippet, getSnippets, editSnippet }) {
           <code>{snippet.code}</code>
         </pre>
       )}
-      <button onClick={() => editSnippet(snippet)}>Edit</button>
-      <button onClick={deleteSnippet}>Delete</button>
+      <button className="btn-edit" onClick={() => editSnippet(snippet)}>
+        Edit
+      </button>
+      <button className="btn-delete" onClick={deleteSnippet}>
+        Delete
+      </button>
     </div>
   );
 }
