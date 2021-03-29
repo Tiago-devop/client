@@ -3,6 +3,7 @@ import Axios from "axios";
 
 import Snippet from "./Snippet";
 import SnippetEditor from "./SnippetEditor";
+import "./Home.scss";
 
 function Home() {
   const [snippets, setSnippets] = useState([]);
@@ -44,7 +45,12 @@ function Home() {
   return (
     <div className="home">
       {!snippetEditorOpen && (
-        <button onClick={() => setSnippetEditorOpen(true)}>Add snippet</button>
+        <button
+          className="btn-editor-toggle"
+          onClick={() => setSnippetEditorOpen(true)}
+        >
+          Add snippet
+        </button>
       )}
       {snippetEditorOpen && (
         <SnippetEditor
