@@ -1,6 +1,7 @@
 import Axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "./AuthForm.scss";
 
 function Login() {
   const [formEmail, setFormEmail] = useState("");
@@ -20,7 +21,7 @@ function Login() {
   return (
     <div className="auth-form">
       <h2>Log in</h2>
-      <form onSubmit={login}>
+      <form className="form" onSubmit={login}>
         <label htmlFor="form-email">Email</label>
         <input
           id="form-email"
@@ -37,7 +38,9 @@ function Login() {
           onChange={(e) => setFormPassword(e.target.value)}
         />
 
-        <button type="submit">Log in</button>
+        <button className="btn-submit" type="submit">
+          Log in
+        </button>
       </form>
       <p>
         Don't have an account yet? <Link to="/login">Register here.</Link>

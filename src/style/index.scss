@@ -1,5 +1,6 @@
 @import "./variables.scss";
 @import "./mixins.scss";
+@import "./forms.scss";
 
 * {
   margin: 0;
@@ -8,8 +9,7 @@
 }
 
 body {
-  // background: var(--primary-color);
-  background-color: orange;
+  background: var(--primary-color);
   color: var(--text-dark-color);
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
