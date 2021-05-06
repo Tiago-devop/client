@@ -1,0 +1,45 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+@import "./forms.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--primary-color);
+  color: var(--text-dark-color);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: 1000px;
+}
+
+// reset
+
+button {
+  border: unset;
+  background: unset;
+  font: unset;
+  color: unset;
+  cursor: pointer;
+}
+
+a {
+  color: unset;
+  text-decoration: unset;
+  @include link();
+}
+
+input,
+textarea {
+  border: unset;
+  color: unset;
+  background-color: unset;
+  font: unset;
+}
