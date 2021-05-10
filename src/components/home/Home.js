@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
 import Axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 
 import Snippet from "./Snippet";
 import SnippetEditor from "./SnippetEditor";
@@ -11,7 +11,7 @@ function Home() {
   const [snippetEditorOpen, setSnippetEditorOpen] = useState(false);
   const [editSnippetData, setEditSnippetData] = useState(null);
 
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     getSnippets();
