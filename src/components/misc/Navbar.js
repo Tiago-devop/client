@@ -1,10 +1,16 @@
+import Axios from "axios";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import "./Navbar.scss";
 import UserContext from "../../context/UseContext";
+import "./Navbar.scss";
 
 function Navbar() {
-  const { user } = useContext(UserContext);
+  const { user, getUser } = useContext(UserContext);
+
+  async function logOut() {
+    await Axios.get("http://localhost:5000/auth/logOut");
+    await getUser();
+  }
 
   return (
     <div className="navbar">
@@ -17,7 +23,9 @@ function Navbar() {
           <Link to="/register">Register</Link>
         </>
       ) : (
-        <button className="btn-logout">Log out</button>
+        <button className="btn-logout" onClick={logOut}>
+          Log out
+        </button>
       )}
     </div>
   );
