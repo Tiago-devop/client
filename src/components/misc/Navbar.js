@@ -17,15 +17,17 @@ function Navbar() {
       <Link to="/">
         <h1>Snippet manager</h1>
       </Link>
-      {!user ? (
+      {user === null ? (
         <>
           <Link to="/login">Log in</Link>
           <Link to="/register">Register</Link>
         </>
       ) : (
-        <button className="btn-logout" onClick={logOut}>
-          Log out
-        </button>
+        user && (
+          <button className="btn-logout" onClick={logOut}>
+            Log out
+          </button>
+        )
       )}
     </div>
   );
