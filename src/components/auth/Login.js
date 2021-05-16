@@ -3,10 +3,12 @@ import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import UserContext from "../../context/UseContext";
 import "./AuthForm.scss";
+import ErrorMessage from "../misc/ErrorMessage";
 
 function Login() {
   const [formEmail, setFormEmail] = useState("");
   const [formPassword, setFormPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const { getUser } = useContext(UserContext);
 
@@ -20,7 +22,16 @@ function Login() {
       password: formPassword,
     };
 
-    await Axios.post("http://localhost:5000/auth/login", loginData);
+    try {
+      await Axios.post("http://localhost:5000/auth/login", loginData);
+    } catch (err) {
+      if (err.response) {
+        if (err.response.data.errorMessage) {
+          setErrorMessage(err.response.data.errorMessage);
+        }
+      }
+      return;
+    }
 
     await getUser();
     history.push("/");
@@ -29,6 +40,12 @@ function Login() {
   return (
     <div className="auth-form">
       <h2>Log in</h2>
+      {errorMessage && (
+        <ErrorMessage
+          message={errorMessage}
+          clear={() => setErrorMessage(null)}
+        />
+      )}
       <form className="form" onSubmit={login}>
         <label htmlFor="form-email">Email</label>
         <input
@@ -51,7 +68,7 @@ function Login() {
         </button>
       </form>
       <p>
-        Don't have an account yet? <Link to="/login">Register here.</Link>
+        Don't have an account yet? <Link to="/register">Register here.</Link>
       </p>
     </div>
   );
