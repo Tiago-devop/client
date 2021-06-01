@@ -3,6 +3,7 @@ import Axios from "axios";
 
 import "./SnippetEditor.scss";
 import ErrorMessage from "../misc/ErrorMessage";
+import domain from "../../util/domain";
 
 function SnippetEditor({ getSnippets, setSnippetEditorOpen, editSnippetData }) {
   const [editorTitle, setEditorTitle] = useState("");
@@ -30,11 +31,10 @@ function SnippetEditor({ getSnippets, setSnippetEditorOpen, editSnippetData }) {
     };
 
     try {
-      if (!editSnippetData)
-        await Axios.post("http://localhost:5000/snippet/", snippetData);
+      if (!editSnippetData) await Axios.post(`${domain}/snippet/`, snippetData);
       else
         await Axios.put(
-          `http://localhost:5000/snippet/${editSnippetData._id}`,
+          `${domain}/snippet/${editSnippetData._id}`,
           snippetData
         );
     } catch (err) {

@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import "./AuthForm.scss";
 import UserContext from "../../context/UseContext";
 import ErrorMessage from "../misc/ErrorMessage";
+import domain from "../../util/domain";
 
 function Register() {
   const [formEmail, setFormEmail] = useState("");
@@ -25,7 +26,7 @@ function Register() {
     };
 
     try {
-      await Axios.post("http://localhost:5000/auth/", registerData);
+      await Axios.post(`${domain}/auth/`, registerData);
     } catch (err) {
       if (err.response) {
         if (err.response.data.errorMessage) {
